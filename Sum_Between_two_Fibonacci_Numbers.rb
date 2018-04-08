@@ -22,6 +22,7 @@ def last_digits_of_sum(a, b, array)
   last_digit_of_b = (b + 2) % length_of_pattern
   last_digit_of_a = (a + 1) % length_of_pattern
 
+  # takes into consider if last digit of b < last digit of a
   total = pattern[last_digit_of_b] + 10
   extra = pattern[last_digit_of_a]
 
