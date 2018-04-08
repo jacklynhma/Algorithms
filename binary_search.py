@@ -29,3 +29,5 @@ def binary_search():
         return( 'Result: %s' %answer )
 
 print(binary_search())
+
+# total RunTime: 0.059
