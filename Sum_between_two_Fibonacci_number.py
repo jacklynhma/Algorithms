@@ -37,7 +37,7 @@ def calculate_last_digit_sum_between_two_Fibonacci_numbers():
     if(answer == result):
         return "Correct!"
     else:
-        return("Result: %s", result)
+        return("Result: %s" %result)
 
 # total run time: 0.081s
 print(calculate_last_digit_sum_between_two_Fibonacci_numbers())

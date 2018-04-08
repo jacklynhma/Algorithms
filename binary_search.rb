@@ -10,7 +10,8 @@ def binary_search()
 
     if x == array[middle_index]
       answer =  middle_index
-    elsif array[min..max].length == 2
+    # if the numbers are next to each other
+    elsif max - min == 1
       if array[max] != x && array[min] != x
         answer = "x does not exist in the array"
       else
@@ -24,6 +25,7 @@ def binary_search()
       max = middle_index
     end
   end
+
   if answer == 8
     return "Correct"
   else
