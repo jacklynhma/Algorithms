@@ -1,5 +1,4 @@
 # SUM of F(0)...F(b) = F(b + 2) - 1
-require "byebug"
 def determine_pattern_mod_10(array)
   i = array.length
 
@@ -27,7 +26,6 @@ def last_digits_of_sum(a, b, array)
   extra = pattern[last_digit_of_a]
 
   # need to account if the total sum's last digit is 0
-
   (total - extra) % 10
 end
 
@@ -40,10 +38,6 @@ def calculate_last_digit_sum_between_two_Fibonacci_numbers
   return 0 if a == 0 && b == 0
   return 1 if a == 0 && b == 1
   result = last_digits_of_sum(a, b, array)
-
-  if result < 0
-    result *= -1
-  end
 
   if answer == result
     puts "Correct!"
