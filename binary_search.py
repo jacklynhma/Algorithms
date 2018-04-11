@@ -1,7 +1,12 @@
 # import pdb
-def binary_search():
-    x = 50
-    array = [2, 4, 6, 8, 12, 19, 20, 30, 50, 93, 100, 200]
+
+def test(answer):
+    if( answer == 8 ):
+        return "Correct"
+    else:
+        return( 'Result: %s' %answer )
+
+def binary_search(array, x):
     max = len(array) - 1
     min = 0
 
@@ -22,12 +27,13 @@ def binary_search():
             min = middle_index
         elif( array[middle_index] > x ):
             max = middle_index
+    return answer
 
-    if( answer == 8 ):
-        return "Correct"
-    else:
-        return( 'Result: %s' %answer )
 
-print(binary_search())
+x = 50
+array = [2, 4, 6, 8, 12, 19, 20, 30, 50, 93, 100, 200]
+
+answer = binary_search(array, x)
+print(test(answer))
 
 # total RunTime: 0.059
