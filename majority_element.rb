@@ -1,7 +1,13 @@
 # Big-O(n)
-def select_majority_element
-  array = [1, 5, 5, 6, 7, 5, 5]
-  answer = 5
+def test(answer, result)
+  if answer == result
+    puts "Correct"
+  else
+    puts "Answer: #{answer} Result: #{result}"
+  end
+end
+
+def select_majority_element(array, answer)
   result = ""
   majority = array.length / 2
   count = {}
@@ -20,12 +26,11 @@ def select_majority_element
       break result
     end
   end
-
-  if answer == result
-    puts "Correct"
-  else
-    puts "Answer: #{answer} Result: #{result}"
-  end
+  result
 end
 
-print select_majority_element
+array = [1, 5, 5, 6, 7, 5, 5]
+answer = 5
+
+result = select_majority_element(array, answer)
+print test(answer, result)

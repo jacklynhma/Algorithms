@@ -1,4 +1,9 @@
 # import pdb
+def test(expected_answer, result):
+    if(expected_answer == result):
+        return "Correct!"
+    else:
+        return("Result: %s" %result)
 def determine_pattern_mod_10(array):
     i = len(array)
     current_value = (array[i - 1] + array[i - 2]) % 10
@@ -22,22 +27,19 @@ def last_digits_of_sum(a, b, array):
     # need to account if the total sum's last digit is 0
     return ((total - extra) % 10)
 
-def calculate_last_digit_sum_between_two_Fibonacci_numbers():
-    array = [0, 1 , 1]
-    a = 30
-    b = 45
-    answer = 4
+def calculate_last_digit_sum_between_two_Fibonacci_numbers(array, a, b):
 
     # account if b = 0 && b = 1
     if (a == 0 and b == 0): return 0
     if (a == 0 and b == 1): return 1
 
-    result = last_digits_of_sum(a, b, array)
-
-    if(answer == result):
-        return "Correct!"
-    else:
-        return("Result: %s" %result)
+    return last_digits_of_sum(a, b, array)
 
 # total run time: 0.081s
-print(calculate_last_digit_sum_between_two_Fibonacci_numbers())
+array = [0, 1 , 1]
+a = 30
+b = 45
+expected_answer = 4
+
+result = calculate_last_digit_sum_between_two_Fibonacci_numbers(array, a, b)
+print(test(expected_answer, result))
