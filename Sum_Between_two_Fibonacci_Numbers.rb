@@ -1,4 +1,11 @@
 # SUM of F(0)...F(b) = F(b + 2) - 1
+def test(expected_answer, result)
+  if expected_answer == result
+    puts "Correct!"
+  else
+    "Result: #{result}"
+  end
+end
 def determine_pattern_mod_10(array)
   i = array.length
 
@@ -29,22 +36,17 @@ def last_digits_of_sum(a, b, array)
   (total - extra) % 10
 end
 
-def calculate_last_digit_sum_between_two_Fibonacci_numbers
-  array = [0, 1, 1]
-  a = 30
-  b = 45
-  answer = 4
+def last_digit_sum_between_two_Fibonacci_numbers(array, a, b)
   # account if b = 0 && b = 1
   return 0 if a == 0 && b == 0
   return 1 if a == 0 && b == 1
   result = last_digits_of_sum(a, b, array)
-
-  if answer == result
-    puts "Correct!"
-  else
-    "Result: #{result}"
-  end
 end
 
 # total run time: 0.136s
-puts calculate_last_digit_sum_between_two_Fibonacci_numbers
+array = [0, 1, 1]
+a = 30
+b = 45
+expected_answer = 4
+result = last_digit_sum_between_two_Fibonacci_numbers(array, a, b)
+puts test(expected_answer, result)

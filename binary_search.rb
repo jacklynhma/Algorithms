@@ -1,6 +1,12 @@
-def binary_search()
-  x = 50
-  array = [2, 4, 6, 8, 12, 19, 20, 30, 50, 93, 100, 200]
+def test(answer)
+  if answer == 8
+    return "Correct"
+  else
+    return "Result: #{answer}"
+  end
+end
+
+def binary_search(array, x)
   max = array.length - 1
   min = 0
 
@@ -25,13 +31,10 @@ def binary_search()
       max = middle_index
     end
   end
-
-  if answer == 8
-    return "Correct"
-  else
-    return "Result: #{answer}"
-  end
+  return answer
 end
-
+x = 50
+array = [2, 4, 6, 8, 12, 19, 20, 30, 50, 93, 100, 200]
 # Runtime: 0.03s
-puts binary_search
+answer = binary_search(array, x)
+test(answer)

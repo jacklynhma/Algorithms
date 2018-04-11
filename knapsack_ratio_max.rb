@@ -1,3 +1,11 @@
+def test(current_value, expected_answer)
+  if current_value == expected_answer
+    return "Correct!!"
+  else
+    return "Result: #{current_value}"
+  end
+end
+
 def sort(items)
   items = items.sort_by { |item| item[:ratio] }
   items.reverse!
@@ -10,16 +18,7 @@ def determine_ratio(items)
   end
 end
 
-def max_value
-  max_weight = 100
-
-  items = [
-    { value: 20, weight: 40 },
-    { value: 3, weight: 50 },
-    { value: 5, weight: 30 }
-  ]
-
-  answer = 15
+def max_value(items, max_weight)
   items = determine_ratio(items)
   ordered_items = sort(items)
 
@@ -41,12 +40,18 @@ def max_value
     end
     x += 1
   end
-  if current_value == answer
-    return "Correct!!"
-  else
-    return "Result: #{current_value}"
-  end
+  return current_value
 end
 
+max_weight = 100
+expected_answer = 15
+items = [
+  { value: 20, weight: 40 },
+  { value: 3, weight: 50 },
+  { value: 5, weight: 30 }
+]
+
+current_value = max_value(items, max_weight)
+print test(current_value, expected_answer)
+
 # RunTime: 0.03 seconds
-puts max_value
