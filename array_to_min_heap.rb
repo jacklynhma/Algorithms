@@ -1,24 +1,12 @@
-require "byebug"
 # 0 base index
 
-# def test(input, answer)
-#   data = input.split().map(&:to_i)
-#  #
-#   i = (data.shift - 2 )/ 2
-#   values = data
-#   switches = 0
-#   answers = ""
-#   smallest_index = (data.length - 2 )/ 2
-#   i = smallest_index
-#
-#   # segments = data[1..2*n].each_slice(2).to_a.map { |e| Segment.new(e[0], e[1]) }
-#   result = organizing(answers, switches, i, values, smallest_index)
-#   if result == answer
-#     puts "correct!"
-#   else
-#     puts "Got: #{result} \n Result: #{answer}"
-#   end
-# end
+def test(answer, result)
+  if answer == result
+    print "Correct!"
+  else
+    print "Answer: #{answer} Result: #{result}"
+  end
+end
 
 def right_index(i)
   (2 * i) + 2
@@ -26,11 +14,6 @@ end
 
 def left_index(i)
   (2 * i) + 1
-end
-
-def print_swaps(switches, answers)
-  answer = "#{switches}#{answers}"
-  return answer
 end
 
 def smallest_index(left_index, right_index, data, smallest_index)
@@ -43,7 +26,7 @@ def smallest_index(left_index, right_index, data, smallest_index)
   smallest_index
 end
 
-def swap(data, smallest_index)
+def swap(data, smallest_index, current_index)
   # switching variables
   # variable that is being over written is assigned to a varriable
   save = data[smallest_index]
@@ -53,27 +36,23 @@ def swap(data, smallest_index)
   data[current_index] = save
 end
 
-def build_heap(answers, switches, data)
+def build_heap(switches, data, lowest_parent_idex, smallest_index, current_index)
   # need to subtract by two starting with 0 base index
-  # current index = youngest parent
-  current_index = (data.length - 2 )/ 2
-  smallest_index = current_index
-  return print_swaps(switches, answers) if current_index < 0
+  byebug
+  return switches if current_index < 0
 
   right_index = right_index(current_index)
   left_index = left_index(current_index)
   smallest_index = smallest_index(left_index, right_index, data, smallest_index)
 
   if smallest_index != current_index
-    swap(data, smallest_index)
-
+    swap(data, smallest_index, current_index)
     # save the answer
-    answers += " #{current_index} #{smallest_index}"
+    switches += " #{current_index} #{smallest_index}"
     # count the number of switches
-    switches += 1
 
     # if the smallest_index is now on the bottom i - 1 where u left off
-    if smallest_index > current_index
+    if smallest_index > lowest_parent_idex
       current_index -= 1
       smallest_index = current_index
     else
@@ -83,9 +62,15 @@ def build_heap(answers, switches, data)
     current_index -= 1
     smallest_index = current_index
   end
-  build_heap(answers, switches, data)
+  build_heap(switches, data, lowest_parent_idex, smallest_index, current_index)
 end
-answers = ""
-switches = 0
-data = [5, 4, 3, 2, 1]
-build_heap(answers, switches, data)
+
+
+switches = ""
+data = [9, 4, 6, 3, 1]
+lowest_parent_idex = (data.length - 2 )/ 2
+current_index = lowest_parent_idex
+smallest_index = lowest_parent_idex
+answer = "1 4 0 1 1 3"
+result = build_heap(switches, data, lowest_parent_idex, smallest_index, current_index)
+test(answer, result)
