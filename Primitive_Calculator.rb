@@ -13,6 +13,14 @@ def calculate_new_record(min_record, current_number)
   return new_record
 end
 
+def divisiable_by(current_number, number)
+  current_number % number == 0
+end
+
+def count(record, current_number, number)
+  record[current_number/number][0] + 1
+end
+
 def minimum_operations(x)
   # history of all the out puts
   # index represents the input
@@ -24,13 +32,13 @@ def minimum_operations(x)
     min_record = record[current_number - 1]
     min_count = record[current_number - 1][0] + 1
 
-    if current_number % 3 == 0 && ((record[current_number/3][0] + 1 ) < min_count)
-      min_count = record[current_number/3][0] + 1
+    if divisiable_by(current_number, 3) && (count(record, current_number, 3) < min_count)
+      min_count = count(record, current_number, 3)
       min_record = record[current_number/3]
     end
 
-    if current_number % 2 == 0 && ((record[current_number/2][0] + 1 ) < min_count)
-      min_count = record[current_number/2][0] + 1
+    if divisiable_by(current_number, 2) && (count(record, current_number, 2)  < min_count)
+      min_count = count(record, current_number, 2)
       min_record = record[current_number/2]
     end
 
