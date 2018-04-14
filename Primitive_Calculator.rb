@@ -40,7 +40,7 @@ def minimum_operations(x)
   end
   record
 end
-number = 5
+number = 85943
 # answer = [number_of_operation, history_after_operations_applied]
-answer = [3, 1, 3, 4, 5]
+answer = [18, 1, 3, 4, 12, 13, 39, 117, 351, 352, 353, 1059, 1060, 1061, 3183, 9549, 28647, 85941, 85942, 85943]
 print test(minimum_operations(number).last, answer)
