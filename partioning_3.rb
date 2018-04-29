@@ -1,72 +1,99 @@
-def sum(a)
-  total = 0
-  a.each do |x|
-    total += x
-  end
-  total
-end
+require "byebug"
 
-
-def create_row(w, weights, record)
+def create_row(w, weights)
   new_calculation = []
   total = 0
+  current_row_index = 0
+  current_column_index = 0
 
-  weights.each_with_index do |weight, index|
-    current_coin_index = record.length
+  while current_row_index < weights.length && current_column_index < weights.length
 
-    if current_coin_index >= index
+    if current_column_index <= current_row_index
       new_calculation.push(0)
     else
-      value = weight + weights[current_coin_index]
+      weight = weights[current_row_index]
+      value = weight + weights[current_column_index]
       new_calculation.push(value)
       total += value
-      # checks if the two numbers equal to a third
-      # checks if the whole row equals to a third
 
-      if value == w/3 || total == w/3
-        return "True"
+    # checks if the two numbers equal to a third
+    # checks if the whole row equals to a third
+
+      if value == w/3
+        return { first: current_column_index, second: current_row_index }
+      elsif total == w/3
+        return new_calculation
       end
+
+      if current_column_index == weights.length - 1
+        current_row_index += 1
+        new_calculation = []
+        total = 0
+        current_column_index = 0
+      end
+
     end
+    current_column_index += 1
   end
-  record.push(new_calculation)
-  record
+  "False"
+end
+def calculate_half(w, weights)
+  weights.each do |x|
+
+  end
 end
 
 def  create_table(w, weights, record, current_value)
-  while record.length  <= weights.length
-    record = create_row(w, weights, record)
-    if record == "True"
-      return "True"
+  record = create_row(w, weights)
+  byebug
+  if record.class == Array
+    next_value = record.length - 1
+    total = 0
+
+    [next_value..record.length-1].each do |x|
+      total += x
+    end
+
+    if total/2 != w/3
+      return "False"
     else
-      create_row(w, weights, record)
-    end
-  end
-  # check if it is exactly three numbers
-  one_third = w/3
-  record[0].each do |x|
-    if x < one_third && weights.include?(one_third - x)
       return "True"
     end
+
+  elsif record.class == Hash
+    left_over_weight = w - weights[record[:first]] - weights[record[:second]]
+
+    if left_over_weight/2 != w/3
+      return "False"
+    end
+    weights.delete_at(record[:first])
+    weights.delete_at(record[:second])
+    answer = calculate_half(w/3, weights)
+    byebug
   end
-  return "False"
 end
 
-def equal_sums?(w, a)
-  if w % 3 != 0
+def equal_sums?(input)
+  w = 0
+  a = []
+  input.split().each do |x|
+    x = x.to_i
+    a.push(x)
+    w += x
+  end
+
+  if w % 3 != 0 || a.detect { |x| x > w/3 }
     return "False"
   else
-    weights = a.sort { |x, y| y <=> x}
-    first = w / 3
-    record = []
+    weights = a
     current_value = 0
-    record = create_table(w, weights, record, current_value)
+    record = create_table(w, weights, 0, current_value)
     record
   end
 end
+
 def test(input, answer)
-  a = input.split().map(&:to_i).sort
-  w = sum(a)
-  result = equal_sums?(w, a)
+  result = equal_sums?(input)
 
   if answer == result
     print "CORRECT"
@@ -75,5 +102,6 @@ def test(input, answer)
   end
 end
 answer = "True"
-input = "3 4 5 6"
+input = "17 59 34 57 17 23 67 1 18 2 59"
+# input = "4 5 6 7 8"
 print test(input, answer)
